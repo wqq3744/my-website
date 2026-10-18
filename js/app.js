@@ -1,16 +1,26 @@
 /* ============================================================
-    HELPER FUNCTIONS
+   🔧 HELPER FUNCTIONS
    ============================================================ */
+
+/**
+ * Jana URL WhatsApp dengan mesej
+ */
 function getWhatsAppUrl(message = '') {
     const defaultMsg = `Hi ${CONFIG.brand.name}! Saya berminat dengan servis baiki laptop.`;
     return `https://wa.me/${CONFIG.brand.phone}?text=${encodeURIComponent(message || defaultMsg)}`;
 }
 
+/**
+ * Resolve value dari CONFIG.brand jika string match
+ */
 function resolveValue(val) {
     if (typeof val === 'string' && CONFIG.brand[val]) return CONFIG.brand[val];
     return val;
 }
 
+/**
+ * Bina butang HTML dari config
+ */
 function buildButton(btn) {
     let href = btn.href;
     if (href === 'wa') href = getWhatsAppUrl();
@@ -26,7 +36,7 @@ function buildButton(btn) {
 }
 
 /* ============================================================
-   🏗️ RENDER FUNCTIONS - Setiap fungsi bina satu seksyen
+   🏗️ RENDER FUNCTIONS
    ============================================================ */
 
 function renderNav() {
@@ -40,6 +50,7 @@ function renderNav() {
 function renderHero() {
     if (!CONFIG.features.hero) return '';
     const h = CONFIG.content.hero;
+
     const statsHtml = CONFIG.features.heroStats ? `
         <div class="hero-stats">
             ${h.stats.map(s => `
@@ -265,7 +276,7 @@ function renderFaq() {
                 <p>${s.subtitle}</p>
             </div>
             <div class="faq-grid">
-                ${s.items.map((item, i) => `
+                ${s.items.map((item) => `
                     <div class="faq-item reveal">
                         <div class="faq-question" onclick="toggleFaq(this)">
                             <span>${item.q}</span>
@@ -301,6 +312,33 @@ function renderCta() {
             </div>
         </div>
     </section>`;
+}
+
+/**
+ * Render field form dengan name attribute (PENTING untuk WhatsApp)
+ */
+function renderField(f) {
+    const req = f.required ? 'required' : '';
+    const nameAttr = f.name ? `name="${f.name}"` : '';
+
+    if (f.type === 'textarea') {
+        return `<div class="form-group">
+            <label>${f.label}</label>
+            <textarea ${nameAttr} placeholder="${f.placeholder}" ${req}></textarea>
+        </div>`;
+    }
+    if (f.type === 'select') {
+        return `<div class="form-group">
+            <label>${f.label}</label>
+            <select ${nameAttr} ${req}>
+                ${f.options.map((o, i) => `<option ${i === 0 ? 'selected disabled' : ''} value="${o}">${o}</option>`).join('')}
+            </select>
+        </div>`;
+    }
+    return `<div class="form-group">
+        <label>${f.label}</label>
+        <input type="${f.type}" ${nameAttr} placeholder="${f.placeholder}" ${req}>
+    </div>`;
 }
 
 function renderContact() {
@@ -354,28 +392,6 @@ function renderContact() {
             </div>
         </div>
     </section>`;
-}
-
-function renderField(f) {
-    const req = f.required ? 'required' : '';
-    if (f.type === 'textarea') {
-        return `<div class="form-group">
-            <label>${f.label}</label>
-            <textarea placeholder="${f.placeholder}" ${req}></textarea>
-        </div>`;
-    }
-    if (f.type === 'select') {
-        return `<div class="form-group">
-            <label>${f.label}</label>
-            <select ${req}>
-                ${f.options.map((o, i) => `<option ${i===0?'selected disabled':''}>${o}</option>`).join('')}
-            </select>
-        </div>`;
-    }
-    return `<div class="form-group">
-        <label>${f.label}</label>
-        <input type="${f.type}" placeholder="${f.placeholder}" ${req}>
-    </div>`;
 }
 
 function renderFooter() {
@@ -434,7 +450,7 @@ function renderWhatsAppFloat() {
 }
 
 /* ============================================================
-   🚀 MAIN RENDER - Jalankan semua
+   🚀 MAIN RENDER
    ============================================================ */
 function renderAll() {
     renderNav();
@@ -455,6 +471,60 @@ function renderAll() {
 }
 
 /* ============================================================
+   📤 HANDLE FORM SUBMIT - HANTAR KE WHATSAPP
+   ============================================================ */
+function handleSubmit(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const btn = form.querySelector('.btn-submit');
+    const originalText = btn.innerHTML;
+
+    //  Ambil data dari form menggunakan name attribute
+    const name = form.querySelector('[name="name"]')?.value?.trim() || '';
+    const phone = form.querySelector('[name="phone"]')?.value?.trim() || '';
+    const email = form.querySelector('[name="email"]')?.value?.trim() || '';
+    const service = form.querySelector('[name="service"]')?.value?.trim() || '';
+    const message = form.querySelector('[name="message"]')?.value?.trim() || '';
+
+    // ✅ Validasi - pastikan ada data penting
+    if (!name || !message) {
+        btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Nama & Mesej diperlukan!';
+        btn.style.background = '#dc3545';
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.background = '';
+        }, 3000);
+        return;
+    }
+
+    // 📝 Bina mesej WhatsApp yang cantik
+    const waMessage =
+        `🔧 *PERTANYAAN BARU - SWAPFIX*%0A%0A` +
+        ` *Nama:* ${encodeURIComponent(name)}%0A` +
+        `📱 *Telefon:* ${encodeURIComponent(phone || 'Tidak diisi')}%0A` +
+        `📧 *Email:* ${encodeURIComponent(email || 'Tidak diisi')}%0A` +
+        `🛠️ *Jenis Servis:* ${encodeURIComponent(service || 'Tidak dipilih')}%0A%0A` +
+        `💬 *Mesej:*%0A${encodeURIComponent(message)}`;
+
+    // 🚀 Buka WhatsApp dengan mesej
+    const waUrl = `https://wa.me/${CONFIG.brand.phone}?text=${waMessage}`;
+    window.open(waUrl, '_blank');
+
+    // 🎨 Animasi berjaya
+    btn.innerHTML = '<i class="fas fa-check"></i> Membuka WhatsApp...';
+    btn.style.background = 'var(--secondary)';
+    btn.disabled = true;
+
+    setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.style.background = '';
+        btn.disabled = false;
+        form.reset();
+    }, 3000);
+}
+
+/* ============================================================
    🎯 EVENT HANDLERS & INTERACTIVITY
    ============================================================ */
 
@@ -472,6 +542,7 @@ window.addEventListener('load', () => {
 // Navbar scroll
 const navbar = document.getElementById('navbar');
 const scrollTopBtn = document.getElementById('scrollTop');
+
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) navbar.classList.add('scrolled');
     else navbar.classList.remove('scrolled');
@@ -519,7 +590,10 @@ function animateCounter(el, target, suffix) {
     const increment = target / 60;
     const timer = setInterval(() => {
         current += increment;
-        if (current >= target) { current = target; clearInterval(timer); }
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
         el.textContent = Math.floor(current) + suffix;
     }, 30);
 }
@@ -560,20 +634,6 @@ function toggleFaq(element) {
         faqItem.classList.add('active');
         answer.style.maxHeight = answer.scrollHeight + 'px';
     }
-}
-
-// Form submit
-function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('.btn-submit');
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-check"></i> Mesej Dihantar!';
-    btn.style.background = 'var(--secondary)';
-    setTimeout(() => {
-        btn.innerHTML = originalText;
-        btn.style.background = '';
-        e.target.reset();
-    }, 3000);
 }
 
 // Scroll to top
