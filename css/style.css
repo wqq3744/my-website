@@ -140,6 +140,87 @@ body {
 }
 
 /* ============================================================
+   📱 KHUSUS UNTUK MOBILE / ANDROID FIX
+   ============================================================ */
+@media (max-width: 768px) {
+    /* 1. Betulkan masalah address bar Android memotong content */
+    .hero {
+        min-height: 100dvh; /* Dynamic viewport height untuk mobile moden */
+        min-height: 100vh;  /* Fallback untuk browser lama */
+        padding: 100px 0 60px; /* Kurangkan padding atas/bawah */
+    }
+
+    /* 2. Pastikan tiada scroll melintang (horizontal) */
+    body, html {
+        overflow-x: hidden !important;
+        width: 100% !important;
+    }
+
+    /* 3. Kecilkan tajuk supaya muat skrin kecil (320px - 480px) */
+    .hero h1 {
+        font-size: 1.8rem !important;
+        line-height: 1.3 !important;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem !important;
+    }
+
+    /* 4. Betulkan grid supaya tidak rapat sangat */
+    .container {
+        padding: 0 16px !important;
+    }
+
+    /* 5. Pastikan butang WhatsApp & CTA muat dan mudah ditekan */
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 20px;
+        font-size: 0.95rem;
+    }
+
+    /* 6. Sembunyikan elemen hiasan yang boleh ganggu mobile */
+    .floating-card, 
+    .hero-visual {
+        display: none !important; /* Atau scale down jika mahu tunjuk */
+    }
+
+    /* 7. Betulkan form contact di mobile */
+    .form-row {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .contact-grid {
+        gap: 30px !important;
+    }
+
+    /* 8. Fix untuk step grid */
+    .steps-grid {
+        gap: 40px !important;
+    }
+    
+    .step-number {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 1.2rem !important;
+    }
+}
+
+/* Fix khusus untuk skrin sangat kecil (contoh: Samsung Fold luar, iPhone SE) */
+@media (max-width: 360px) {
+    .hero h1 { font-size: 1.6rem !important; }
+    .section-header h2 { font-size: 1.6rem !important; }
+    .offer-price { font-size: 2rem !important; }
+}
+
+/* ============================================================
    ANIMATIONS
    ============================================================ */
 @keyframes fadeInUp {
