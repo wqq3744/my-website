@@ -47,7 +47,7 @@ const CONFIG = {
         services: true,
         howItWorks: true,
         whyUs: true,
-        offers: true,
+        offers: false,
         testimonials: false,
         faq: true,
         cta: true,
