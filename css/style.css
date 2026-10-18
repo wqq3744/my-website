@@ -1,220 +1,275 @@
 /* ============================================================
-   📱 MOBILE PREMIUM UPGRADE (Android & iOS Optimized)
+   📱 PREMIUM MOBILE UI/UX ENHANCEMENTS
+   (Letak di bahagian paling bawah CSS anda)
    ============================================================ */
+
 @media (max-width: 768px) {
-    /* 1. GLOBAL MOBILE FIXES */
-    body {
-        -webkit-tap-highlight-color: transparent; /* Hilangkan kotak kelabu bila tekan */
-        touch-action: manipulation; /* Respons sentuhan lebih pantas */
-        text-rendering: optimizeLegibility;
-    }
-
-    /* 2. NAVBAR MOBILE (Glassmorphism App-like) */
-    .nav-links {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border-left: 1px solid rgba(0,0,0,0.05);
-        padding-top: 100px;
-    }
-    .nav-links a {
-        padding: 16px 0;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-        font-size: 1.1rem !important;
-        font-weight: 600 !important;
-    }
-    .nav-links a:last-child {
-        border-bottom: none;
-    }
-
-    /* 3. HERO SECTION (Lebih Padat & Menarik) */
-    .hero {
-        min-height: 100dvh; /* Dynamic height, elak address bar potong */
-        padding: 120px 0 60px;
-        text-align: center;
-    }
-    .hero h1 {
-        font-size: 2rem !important;
-        line-height: 1.25 !important;
-        margin-bottom: 20px;
-    }
-    .hero-subtitle {
-        font-size: 1.05rem !important;
-        line-height: 1.6 !important;
-        margin-bottom: 28px;
-        opacity: 0.9;
+    
+    /* 1. FLUID TYPOGRAPHY (Teks auto scale ikut saiz skrin) */
+    :root {
+        --mobile-padding: 20px;
     }
     
-    /* Hero Buttons: Full width & mudah tekan */
-    .hero-buttons {
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .section-header h2 {
+        font-size: clamp(1.6rem, 6vw, 2rem); /* Saiz dinamik */
+        line-height: 1.3;
+        margin-bottom: 12px;
+    }
+
+    .section-header p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        padding: 0 10px;
+    }
+
+    .container {
+        padding: 0 var(--mobile-padding);
+    }
+
+    /* 2. HERO SECTION YANG LEBIH CLEAN & MENARIK */
+    .hero {
+        padding: 110px 0 60px;
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+    }
+
+    .hero-grid {
+        gap: 40px;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: clamp(1.8rem, 8vw, 2.5rem);
+        line-height: 1.2;
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 28px;
+        padding: 0 10px;
+    }
+
+    /* Cantikkan Laptop Mockup di Mobile */
+    .hero-visual {
+        order: -1; /* Letak gambar di atas teks untuk mobile */
+        margin-bottom: 10px;
+    }
+    
+    .laptop-mockup {
+        padding: 12px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        transform: perspective(1000px) rotateX(2deg); /* Efek 3D halus */
+    }
+
+    .floating-card {
+        display: none; /* Sembunyikan floating card di mobile supaya tak serabut */
+    }
+
+    /* 3. THUMB-FRIENDLY BUTTONS (Mesra Ibu Jari) */
+    .hero-buttons, .cta-buttons {
         flex-direction: column;
         width: 100%;
         gap: 14px;
         padding: 0 10px;
     }
-    .hero-buttons .btn {
+
+    .hero-buttons .btn, .cta-buttons .btn {
         width: 100%;
         justify-content: center;
-        padding: 16px 20px;
+        padding: 16px 24px;
         font-size: 1rem;
-        font-weight: 700;
+        border-radius: 14px; /* Lebih modern dari 50px */
+        transition: all 0.2s ease;
+    }
+
+    /* Efek tekan butang (Haptic feel) */
+    .btn:active {
+        transform: scale(0.97) !important;
+        opacity: 0.9;
+    }
+
+    .btn-whatsapp {
+        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.25);
+    }
+
+    /* 4. MODERN MOBILE MENU (Slide-in yang smooth) */
+    .nav-links {
+        width: 85%; /* Tak perlu full screen, nampak lebih premium */
+        max-width: 320px;
+        right: -100%;
+        padding: 100px 30px 40px;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+        border-radius: 20px 0 0 20px;
+    }
+
+    .nav-links li {
+        width: 100%;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 18px 0;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--dark) !important;
+    }
+
+    .nav-cta {
+        margin-top: 20px;
+        text-align: center;
         border-radius: 12px;
+        border-bottom: none !important;
     }
 
-    /* Hero Laptop Mockup: Scale down cantik */
-    .hero-laptop {
-        max-width: 85%;
-        margin-top: 40px;
-    }
-    .laptop-mockup {
-        padding: 12px;
-        border-radius: 12px;
+    /* 5. CARDS YANG LEBIH CANTIK & SELESA (Services, Features, Offers) */
+    .services-grid, .features-grid, .offers-grid, .testimonials-grid {
+        gap: 20px;
     }
 
-    /* 4. SECTION HEADINGS (Lebih Kemas) */
-    .section-header {
-        margin-bottom: 40px;
-        padding: 0 10px;
-    }
-    .section-header h2 {
-        font-size: 1.75rem !important;
-        line-height: 1.3;
-    }
-    .section-header p {
-        font-size: 0.95rem !important;
-        line-height: 1.6;
+    .service-card, .feature-card, .offer-card, .testimonial-card {
+        padding: 28px 24px;
+        border-radius: 20px; /* Sudut lebih bulat, nampak moden */
+        box-shadow: 0 10px 30px rgba(0,0,0,0.04); /* Shadow sangat lembut */
+        border: 1px solid rgba(0,0,0,0.03);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /* 5. CARDS (Services, Offers, Testimonials) */
-    .services-grid, .offers-grid, .testimonials-grid, .features-grid {
-        gap: 20px; /* Jarak lebih kemas */
+    /* Efek bila user touch/hold card */
+    .service-card:active, .feature-card:active, .offer-card:active {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.08);
     }
-    .service-card, .offer-card, .testimonial-card, .feature-card {
-        padding: 28px 22px;
-        border-radius: 20px; /* Lebih modern & lembut */
-        box-shadow: 0 8px 24px rgba(0,0,0,0.06); /* Shadow lebih halus */
-        border: 1px solid rgba(0,0,0,0.04);
-    }
-    .service-icon, .offer-icon, .feature-icon {
+
+    .service-icon, .feature-icon, .offer-icon {
         width: 56px;
         height: 56px;
-        font-size: 1.3rem;
-        border-radius: 14px;
+        border-radius: 16px;
+        margin-bottom: 20px;
     }
-    .service-card h3, .offer-card h3, .feature-content h3 {
-        font-size: 1.1rem;
-        margin-bottom: 10px;
+
+    /* 6. STEPS (Cara Kerja) - Vertical Timeline */
+    .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding-left: 10px;
     }
-    .service-card p, .feature-content p {
+
+    .steps-grid::before {
+        display: none; /* Hilangkan garisan horizontal */
+    }
+
+    .step-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        text-align: left;
+        background: var(--white);
+        padding: 20px;
+        border-radius: 16px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+    }
+
+    .step-number {
+        margin: 0;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+    }
+
+    .step-card h3 {
+        margin-bottom: 6px;
+        font-size: 1.05rem;
+    }
+
+    .step-card p {
         font-size: 0.9rem;
-        line-height: 1.6;
     }
 
-    /* 6. OFFER CARDS (Pricing) */
-    .offer-card.featured {
-        transform: scale(1); /* Batalkan scale besar di mobile */
-        border: 2px solid var(--secondary);
-        position: relative;
-    }
-    .offer-card.featured::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 20px;
-        background: linear-gradient(135deg, rgba(0,200,83,0.05), transparent);
-        z-index: 0;
-        pointer-events: none;
-    }
-    .offer-price {
-        font-size: 2.2rem;
-    }
-
-    /* 7. FORM CONTACT (Elak Auto-Zoom & Mudah Tekan) */
+    /* 7. FORM CONTACT YANG MESRA MOBILE */
     .contact-form {
-        padding: 24px 20px;
+        padding: 28px 20px;
         border-radius: 20px;
     }
+
     .form-group input, 
     .form-group select, 
     .form-group textarea {
-        font-size: 16px !important; /* PENTING: Elak iOS/Android auto-zoom bila klik */
-        padding: 16px;
+        padding: 16px; /* Ruang dalam lebih besar, senang tap */
+        font-size: 16px; /* Elak auto-zoom di iOS/Android */
         border-radius: 12px;
-        border: 1.5px solid #e2e8f0;
-        transition: all 0.3s ease;
+        background: #f8f9fa;
+        border: 1px solid transparent;
+        transition: all 0.3s;
     }
+
     .form-group input:focus, 
     .form-group select:focus, 
     .form-group textarea:focus {
+        background: var(--white);
         border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+        box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.1);
     }
+
     .btn-submit {
         padding: 18px;
         font-size: 1.05rem;
-        font-weight: 700;
-        border-radius: 12px;
+        border-radius: 14px;
         margin-top: 10px;
     }
 
-    /* 8. STEPS (How it works) */
-    .steps-grid {
-        gap: 32px;
-        padding: 0 10px;
-    }
-    .step-number {
-        width: 64px;
-        height: 64px;
-        font-size: 1.3rem;
-    }
-    .step-card h3 {
-        font-size: 1.05rem;
-    }
-
-    /* 9. FAQ */
-    .faq-question {
-        padding: 20px;
-        font-size: 0.95rem;
-    }
-    .faq-answer-content {
-        padding: 0 20px 20px;
-        font-size: 0.9rem;
-    }
-
-    /* 10. FLOATING WHATSAPP BUTTON */
+    /* 8. FLOATING WHATSAPP BUTTON (Lebih kemas) */
     .whatsapp-float {
         bottom: 20px;
         right: 20px;
     }
+
     .whatsapp-float a {
         padding: 14px 20px;
         border-radius: 50px;
-        font-size: 0.9rem;
-        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+    }
+
+    /* 9. TRUST BAR (Scroll horizontal jika perlu, atau stack cantik) */
+    .trust-bar .container {
+        gap: 20px;
+        padding: 20px;
     }
     
-    /* 11. FOOTER */
-    .footer {
-        padding: 40px 0 90px; /* Extra padding bawah supaya tak tertutup butang WA */
-        text-align: center;
+    .trust-item {
+        font-size: 0.8rem;
+        background: var(--light);
+        padding: 8px 14px;
+        border-radius: 50px;
     }
-    .footer-grid {
-        gap: 32px;
-    }
-    .footer h4 {
-        font-size: 1.1rem;
-        margin-bottom: 16px;
-    }
-    .footer-links a {
+
+    /* 10. FAQ ACCORDION */
+    .faq-question {
+        padding: 20px;
         font-size: 0.95rem;
-        padding: 6px 0;
-        display: inline-block;
+    }
+    
+    .faq-answer-content {
+        padding: 0 20px 20px;
+        font-size: 0.9rem;
     }
 }
 
-/* Fix untuk skrin sangat kecil (Fold, iPhone SE) */
+/* Fix untuk skrin sangat kecil (Samsung Fold luar, iPhone SE lama) */
 @media (max-width: 360px) {
-    .hero h1 { font-size: 1.7rem !important; }
-    .section-header h2 { font-size: 1.5rem !important; }
-    .container { padding: 0 16px !important; }
+    .hero h1 { font-size: 1.6rem; }
+    .section-header h2 { font-size: 1.5rem; }
+    .container { padding: 0 16px; }
 }
