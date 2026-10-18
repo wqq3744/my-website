@@ -12,7 +12,7 @@ const CONFIG = {
         name: 'SWAPFIX',
         tagline: 'PC/Laptop Rosak? Pinjam Dulu, Kami Baiki!',
         phone: '601174874115',           // Nombor WhatsApp (tanpa +)
-        phoneDisplay: '+6011 74874115', // Format paparan
+        phoneDisplay: '+601174874115', // Format paparan
         email: 'hello@swapfix.my',
         address: 'Klang, Selangor, Malaysia',
         hours: 'Isnin - Sabtu: 9AM - 6PM',
@@ -48,13 +48,13 @@ const CONFIG = {
         howItWorks: true,
         whyUs: true,
         offers: true,
-        testimonials: true,
+        testimonials: false,
         faq: true,
         cta: true,
         contact: true,
         footer: true,
         heroFloatingCards: true,
-        heroStats: true,
+        heroStats: false,
         heroBadge: true
     },
 
