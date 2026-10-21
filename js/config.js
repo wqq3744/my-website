@@ -10,13 +10,13 @@ const CONFIG = {
     // 📞 Maklumat Syarikat
     brand: {
         name: 'SWAPFIX',
-        tagline: 'PC/Laptop Rosak? Pinjam Dulu, Kami Baiki!',
+        tagline: 'PC/Laptop Rosak? Pinjam Dulu Sementara Kami Baiki!',
         phone: '601174874115',           // Nombor WhatsApp (tanpa +)
         phoneDisplay: '+601174874115', // Format paparan
         email: 'hello@swapfix.my',
         address: 'Klang, Selangor, Malaysia',
-        hours: 'Isnin - Sabtu: 9AM - 6PM',
-        hashtags: '#Klang #SWAPFIXmy'
+        hours: 'Bila-bila masa',
+        hashtags: '#Klang dan #ShahAlam'
     },
 
     // 🎨 Tema
