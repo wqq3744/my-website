@@ -67,7 +67,7 @@ const CONFIG = {
             badge: { icon: 'fa-fire', text: '#Klang #SWAPFIXmy' },
             title: {
                 before: ' PC/Laptop Rosak?',
-                highlight: 'Pinjam Dulu, Kami Baiki!',
+                highlight: 'PC@Laptop Rosak? Pinjam Dulu Sementara Kami Baiki!',
                 after: '🔥'
             },
             subtitle: 'Zero Downtime, 100% Produktif! Servis baiki PC & laptop terus di rumah atau pejabat anda. Data selamat 100%, tanpa format.',
