@@ -64,10 +64,10 @@ const CONFIG = {
     content: {
         // 🏠 Hero
         hero: {
-            badge: { icon: 'fa-fire', text: '#Klang #SWAPFIXmy' },
+            badge: { icon: 'fa-fire', text: '#Klang #ShahAlam' },
             title: {
                 before: ' PC/Laptop Rosak?',
-                highlight: 'PC@Laptop Rosak? Pinjam Dulu Sementara Kami Baiki!',
+                highlight: 'Pinjam Dulu Sementara Kami Baiki!',
                 after: '🔥'
             },
             subtitle: 'Zero Downtime, 100% Produktif! Servis baiki PC & laptop terus di rumah atau pejabat anda. Data selamat 100%, tanpa format.',
